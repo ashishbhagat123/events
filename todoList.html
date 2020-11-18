@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ToDo list</title>
+        <style>
+            div{
+                width: 350px;
+                height: auto;
+                margin: 50px auto;
+                border: 1px solid black;
+                padding: 10px;
+                background-color: rgb(255, 218, 200);
+            }
+            #item{
+                width: 200px;
+                height: 20px;
+                padding: 4px;
+                border: 1px solid gray;
+                border-radius: 6px;
+                margin-right: 50px;
+                color: maroon;
+            }
+            div > h2{
+                text-align: center;
+                color: maroon;
+            }
+            #creator > input:nth-child(2),button {
+                border: none;
+                background-color: black;
+                color: white;
+                padding: 7px;
+                border-radius: 4px;
+            }
+            #creator > input:nth-child(2):hover,button:hover{
+                background-color: mediumblue;
+            }
+            .redBtn{
+                background-color:red;
+            }
+            th:nth-child(1), td:nth-child(1){
+                text-align: center;
+                float: left;
+                margin: 10px 120px 10px 10px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div>
+            <h2>Add task</h2>
+            <form id="creator">
+                <input type="text" id="item" />
+                <input type="submit" />
+            </form>
+            <hr>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="items">
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script>
+        var creatorForm = document.getElementById('creator');
+        var itemsParent = document.getElementById('items')
+
+        creatorForm.addEventListener('submit', submitForm)
+
+        function submitForm(event){
+            var item = document.getElementById("item").value;
+            createItem(item);
+            event.preventDefault();
+        }
+
+        function createItem(item){
+            var row = document.createElement('tr')
+            var col1 = document.createElement('td')
+            col1.textContent = item
+            var col2 = document.createElement('td')
+            var btn = document.createElement('button')
+            btn.textContent = "mark Complete"
+            btn.setAttribute('class', 'redBtn')
+            btn.addEventListener("click", markComplete)
+
+            // Adding btn to col2
+            col2.appendChild(btn);
+
+            //Adding col1 and col2 to row
+            row.appendChild(col1);
+            row.appendChild(col2);
+
+            //Adding row to items body
+            itemsParent.appendChild(row);
+        }
+
+        function markComplete(event) {
+            var item = event.target
+            item.textContent = "completed"
+            item.style.color = "black"
+            item.style.backgroundColor = "green"   
+        }
+
+        
+    </script>
+</html>
